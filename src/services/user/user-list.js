@@ -2,7 +2,7 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            postInfo: null,
+            userInfo: null,
             dialogTitle: "",
             dialog: false,
             isDeleteDialog: false,
@@ -13,27 +13,43 @@ export default {
                     value: "id",
                 },
                 {
-                    text: "Post Title",
-                    value: "title",
+                    text: "Name",
+                    value: "name",
                 },
                 {
-                    text: "Post Desciption",
-                    value: "description",
+                    text: "Email",
+                    value: "email",
                 },
                 {
-                    text: "Posted User",
+                    text: "Created User",
                     value: "user.name",
                 },
                 {
-                    text: "Posted Date",
+                    text: "Type",
+                    value: "type",
+                },
+                {
+                    text: "Phone",
+                    value: "phone",
+                },
+                {
+                    text: "Address",
+                    value: "address",
+                },
+                {
+                    text: "Created Date",
                     value: "created_at",
+                },
+                {
+                    text: "Updated Date",
+                    value: "updated_at",
                 },
                 {
                     text: "Operation",
                     value: "operation",
                 },
             ],
-            postList: [],
+            userList: [],
             showList: [],
         };
     },
@@ -49,28 +65,13 @@ export default {
     },
     mounted() {
         this.$axios
-            .get("/post/list")
+            .get("/user/list")
             .then((response) => {
-                this.postList = response.data;
-                this.showList = this.postList;
+                this.userList = response.data;
+                this.showList = this.userList;
             })
             .catch((err) => {
                 console.log(err);
             });
-    },
-    methods: {
-        /**
-         * This is to filter posts of datatable.
-         * @returns void
-         */
-        filterPosts() {
-            this.showList = this.postList.filter((post) => {
-                return (
-                    post.title.includes(this.keyword) ||
-                    post.description.includes(this.keyword) ||
-                    post.created_user.includes(this.keyword)
-                );
-            });
-        },
     },
 };

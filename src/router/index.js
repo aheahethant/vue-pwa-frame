@@ -5,6 +5,7 @@ import Login from "../pages/user/Login";
 import PostList from "../pages/post/PostList";
 // import store from "../store";
 import Testing from "../pages/test/Testing";
+import UserList from "../pages/user/UserList";
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,11 @@ const routes = [
     {
         path: "/test",
         component: Testing,
+    },
+    {
+        path: "/user/list",
+        name: "user-list",
+        component: UserList,
     },
     {
         path: "/login",
