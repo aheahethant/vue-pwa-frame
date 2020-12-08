@@ -2,10 +2,8 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            postInfo: null,
-            dialogTitle: "",
-            dialog: false,
-            isDeleteDialog: false,
+            selectedDialogNote: false,
+            item: {},
             headerList: [
                 {
                     text: "ID",
@@ -59,6 +57,18 @@ export default {
             });
     },
     methods: {
+        showDetail(item) {
+            this.selectedDialogNote = true;
+            this.item = item;
+        },
+        hideDetail: function (event) {
+            if (event) {
+                this.selectedDialogNote = false;
+            }
+        },
+        editPost(item) {
+            this.$router.push({ name: 'edit-post', params: { item: item} });
+        },
         /**
          * This is to filter posts of datatable.
          * @returns void

@@ -2,10 +2,12 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            userInfo: null,
-            dialogTitle: "",
-            dialog: false,
-            isDeleteDialog: false,
+            selectedDialogNote: false,
+            item: {},
+            date: new Date().toISOString().substr(0, 10),
+            date1: new Date().toISOString().substr(0, 10),
+            menu: false,
+            menu1: false,
             headerList: [
                 {
                     text: "ID",
@@ -73,5 +75,16 @@ export default {
             .catch((err) => {
                 console.log(err);
             });
+    },
+    methods: {
+        showDetail(item) {
+            this.selectedDialogNote = true;
+            this.item = item;
+        },
+        hideDetail: function (event){
+            if (event) {
+                this.selectedDialogNote = false;
+              }
+        },
     },
 };

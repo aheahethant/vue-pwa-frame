@@ -8,6 +8,8 @@
                         <span>{{ title }}</span>
                     </v-toolbar-title>
                     <div class="route-links">
+                        <router-link class="route-link pl-5" :to="{ name: 'user-list' }">Users</router-link>
+                        <router-link class="route-link pl-5" :to="{ name: 'post-list' }">Posts</router-link>
                     </div>
                     <v-spacer></v-spacer>
                     <div class="route-links">

@@ -2,14 +2,22 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Login from "../pages/user/Login";
-import PostList from "../pages/post/PostList";
 // import store from "../store";
 import Testing from "../pages/test/Testing";
 import UserList from "../pages/user/UserList";
+import PostList from "../pages/post/PostList";
+import ConfirmPost from "../pages/post/ConfirmPost";
+import CreatePost from "../pages/post/CreatePost";
+import UpdatePost from "../pages/post/UpdatePost";
 
 Vue.use(VueRouter);
 
 const routes = [
+    {
+        path: "/login",
+        name: "login",
+        component: Login,
+    },
     {
         path: "/test",
         component: Testing,
@@ -20,14 +28,24 @@ const routes = [
         component: UserList,
     },
     {
-        path: "/login",
-        name: "login",
-        component: Login,
+        path: "/confirm/post",
+        name: "confirm-post",
+        component: ConfirmPost,
+    },
+    {
+        path: "/create/post",
+        name: "create-post",
+        component: CreatePost,
     },
     {
         path: "/post/list",
         name: "post-list",
         component: PostList,
+    },
+    {
+        path: "/edit/post",
+        name: "edit-post",
+        component: UpdatePost,
     },
     {
         path: "/*",
