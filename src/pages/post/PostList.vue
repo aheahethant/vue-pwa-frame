@@ -92,7 +92,7 @@
               <v-btn color="primary" class="post-list-btn" v-on:click="editPost(item)">Edit</v-btn>
             </div>
             <div class="operation-btn">
-              <v-btn color="error" class="post-list-btn">Delete</v-btn>
+              <v-btn color="error" class="post-list-btn" v-on:click="deletePost(item)">Delete</v-btn>
             </div>
           </div>
         </template>

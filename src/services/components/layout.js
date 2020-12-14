@@ -8,7 +8,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["isLoggedIn", "userType", "userName"]),
+        ...mapGetters(["isLoggedIn", "userName"]),
     },
     methods: {
         /**
@@ -30,7 +30,7 @@ export default {
          * @returns void
          */
         showProfile() {
-            // TODO: do something
+            this.$router.push({ name: 'profile'})
         },
     },
 };

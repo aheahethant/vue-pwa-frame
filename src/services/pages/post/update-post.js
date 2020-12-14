@@ -4,6 +4,7 @@ export default {
         post: {
             title: "",
             description: "",
+            status: "",
         },
         error: "",
 
@@ -28,11 +29,18 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
-        }
+        },
+        check (e) {
+            console.log(e);
+        },
     },
     created() {
         this.post.title = this.$route.params.item.title
         this.post.description = this.$route.params.item.description
-        this.post.status = this.$route.params.item.status
+        if(this.$route.params.item.status === '1'){
+            this.post.status = 'Checked';
+        }else{
+            this.post.status = 'Unchecked';
+        }
     },
 };

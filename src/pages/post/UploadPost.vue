@@ -15,28 +15,11 @@
             hide-details="auto"
           ></v-text-field>
         </div>
-        <div>
-          <v-text-field
-            v-model="post.description"
-            type="text"
-            label="Descriptioin"
-            :rules="descriptionRules"
-            hide-details="auto"
-          ></v-text-field>
-        </div>
-        <div>
-          <v-checkbox
-            color="indigo"
-            label="Status"
-            v-model="post.status"
-            @change="check"
-          ></v-checkbox>
-        </div>
       </v-card-text>
       <v-card-actions>
         <div>
           <v-spacer></v-spacer>
-          <v-btn type="submit" class="ml-2" large color="primary">Edit</v-btn>
+          <v-btn type="submit" class="ml-2" large color="primary">Upload</v-btn>
           <v-btn type="reset" class="ml-2" large color="secondary">Clear</v-btn>
         </div>
       </v-card-actions>
@@ -44,4 +27,4 @@
   </v-card>
 </template>
 
-<script src="../../services/pages/post/update-post.js"></script>
+<script src="../../services/pages/post/upload-post.js"></script>

@@ -1,9 +1,9 @@
 <template>
   <v-card class="mx-auto" max-width="800">
     <v-card-title>
-      <span class="title font-weight-light">Create User</span>
+      <span class="title font-weight-light">Confirm User</span>
     </v-card-title>
-    <v-form ref="form" v-model="valid" @submit.prevent="createUser">
+    <v-form ref="form" v-model="valid" @submit.prevent="confirmUser">
       <v-card-text>
         <div>{{ error }}</div>
         <div>
@@ -36,11 +36,12 @@
         <div>
           <v-text-field
             v-model="user.confirmPassword"
+            :rules="confirmPasswordRules"
             type="password"
             label="confirmPassword"
-            :rules="confirmPasswordRules"
             hide-details="auto"
-          ></v-text-field>
+            >}</v-text-field
+          >
         </div>
         <div>
           <v-select
@@ -91,27 +92,24 @@
           ></v-text-field>
         </div>
         <div class="mt-5 mb-5">
-          <input
-            type="file"
-            @change="preview_image"
-            style="display: none"
-            ref="fileInput"
-          />
-          <v-btn @click="$refs.fileInput.click()" color="indigo">Profile</v-btn>
-        </div>
-        <div>
           <img :src="profile" alt="image" width="35%" max-height="150px" />
         </div>
       </v-card-text>
       <v-card-actions>
         <div>
           <v-spacer></v-spacer>
-          <v-btn large color="primary" v-on:click="createUser">Register</v-btn>
-          <v-btn type="reset" class="ml-2" large color="secondary">Clear</v-btn>
+          <v-btn type="submit" large color="primary">Confirm</v-btn>
+          <v-btn
+            onClick="history.go(-1); return false;"
+            class="ml-2"
+            large
+            color="secondary"
+            >Cancel</v-btn
+          >
         </div>
       </v-card-actions>
     </v-form>
   </v-card>
 </template>
 
-<script src="../../services/pages/user/create-user.js"></script>
+<script src="../../services/pages/user/confirm-user.js"></script>

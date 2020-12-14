@@ -29,10 +29,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker
-                v-model="date"
-                @input="menu = false"
-              ></v-date-picker>
+              <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
             </v-menu>
           </v-col>
           <v-col md="2.5">
@@ -53,10 +50,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker
-                v-model="date"
-                @input="menu1 = false"
-              ></v-date-picker>
+              <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
             </v-menu>
           </v-col>
           <v-btn class="user-list-btn mr-4" color="primary">Search</v-btn>
@@ -65,12 +59,11 @@
     </v-card-title>
     <v-container>
       <v-data-table :headers="headers" :items="showList">
+        <template v-slot:[`item.profile`]="{ item }">
+          {{ item.profile }}
+        </template>
         <template v-slot:[`item.name`]="{ item }">
-          <v-dialog
-            v-model="selectedDialogNote[item.id]"
-            :key="item.id"
-            width="500"
-          >
+          <v-dialog v-model="selectedDialogNote[item.id]" :key="item.id" width="500">
             <template v-slot:activator="{ on, attrs }">
               <v-btn class="red--text" text v-bind="attrs" v-on="on">
                 {{ item.name }}
@@ -78,78 +71,89 @@
             </template>
 
             <v-card>
-              <v-card-title class="headline grey lighten-2">
-                User Detail
-              </v-card-title>
+              <v-card-title class="headline grey lighten-2"> User Detail </v-card-title>
 
               <v-card-text>
-                <table>
-                  <tr>
-                    <td>
-                        <img :src="'http://localhost:8000/storage_image/1607313120.jpg'" width="100%" height="5%">
-                    </td>
-                    <td>Name</td>
-                    <td class="red--text">{{ item.name }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Type</td>
-                    <td class="red--text">{{ item.type }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Email</td>
-                    <td class="red--text">{{ item.email }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Phone</td>
-                    <td class="red--text">{{ item.phone }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Date Of Birth</td>
-                    <td class="red--text">{{ item.dob }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Address</td>
-                    <td class="red--text">{{ item.address }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Created Date</td>
-                    <td class="red--text">{{ item.created_at }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Created User</td>
-                    <td class="red--text">{{ item.create_user_id }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Updated Date</td>
-                    <td class="red--text">{{ item.updated_at }}</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>Updated User</td>
-                    <td class="red--text">{{ item.updated_user_id }}</td>
-                  </tr>
-                </table>
+                <v-container class="grey lighten-5">
+                  <v-row no-gutters>
+                    <div class="float-left col-sm-4">
+                      <v-col cols="12">
+                        <v-card class="pa-1">
+                          <img :src="img_url + item.profile" width="100%" height="50%" />
+                        </v-card>
+                      </v-col>
+                    </div>
+                    <div class="float-right col-sm-8">
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Name</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.name }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Type</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.type }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Email</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.email }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Phone</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.phone }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Date of Birth</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.dob }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Address</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.address }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Created Date</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.created_at }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Created User</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.create_user_id }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Updated Date</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.updated_at }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-5 float-left">Updated User</div>
+                        <div class="col-sm-7 red--text float-right">
+                          {{ item.updated_user_id }}
+                        </div>
+                      </div>
+                    </div>
+                  </v-row>
+                </v-container>
               </v-card-text>
 
               <v-divider></v-divider>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  color="primary"
-                  text
-                  v-on:click = "hideDetail"
-                >
-                  Close
-                </v-btn>
+                <v-btn color="primary" text v-on:click="hideDetail"> Close </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -158,13 +162,17 @@
           <div v-if="item.type === '0'">Admin</div>
           <div v-else>User</div>
         </template>
-        <template v-slot:[`item.operation`]>
+        <template v-slot:[`item.operation`]="{ item }">
           <div class="row">
             <div class="operation-btn">
-              <v-btn color="primary" class="user-list-btn">Edit</v-btn>
+              <v-btn color="primary" class="user-list-btn" v-on:click="editUser(item)"
+                >Edit</v-btn
+              >
             </div>
             <div class="operation-btn">
-              <v-btn color="error" class="user-list-btn">Delete</v-btn>
+              <v-btn color="error" class="user-list-btn" v-on:click="destroy(item)"
+                >Delete</v-btn
+              >
             </div>
           </div>
         </template>
@@ -173,8 +181,6 @@
   </v-card>
 </template>
 
-<script src="../../services/pages/user/user-list.js">
-</script>
+<script src="../../services/pages/user/user-list.js"></script>
 
-<style scoped src="../../assets/css/pages/user/user-list.css">
-</style>
+<style scoped src="../../assets/css/pages/user/user-list.css"></style>

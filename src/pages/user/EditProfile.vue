@@ -1,9 +1,9 @@
 <template>
   <v-card class="mx-auto" max-width="800">
     <v-card-title>
-      <span class="title font-weight-light">Create User</span>
+      <span class="title font-weight-light">Edit Profile</span>
     </v-card-title>
-    <v-form ref="form" v-model="valid" @submit.prevent="createUser">
+    <v-form ref="form" v-model="valid" @submit.prevent="editProfile">
       <v-card-text>
         <div>{{ error }}</div>
         <div>
@@ -25,30 +25,7 @@
           ></v-text-field>
         </div>
         <div>
-          <v-text-field
-            v-model="user.password"
-            type="password"
-            label="password"
-            :rules="passwordRules"
-            hide-details="auto"
-          ></v-text-field>
-        </div>
-        <div>
-          <v-text-field
-            v-model="user.confirmPassword"
-            type="password"
-            label="confirmPassword"
-            :rules="confirmPasswordRules"
-            hide-details="auto"
-          ></v-text-field>
-        </div>
-        <div>
-          <v-select
-            v-model="user.type"
-            :items="['Admin', 'User']"
-            label="Type"
-            :rules="typeRules"
-          ></v-select>
+          <v-select :items="['Admin', 'User']" label="Type" :rules="typeRules"></v-select>
         </div>
         <div>
           <v-text-field
@@ -68,7 +45,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
-                v-model="user.date"
+                v-model="user.dob"
                 label="Date of Birth"
                 prepend-icon="mdi-calendar"
                 readonly
@@ -76,10 +53,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker
-              v-model="user.date"
-              @input="menu = false"
-            ></v-date-picker>
+            <v-date-picker v-model="user.dob" @input="menu = false"></v-date-picker>
           </v-menu>
         </div>
         <div>
@@ -91,27 +65,35 @@
           ></v-text-field>
         </div>
         <div class="mt-5 mb-5">
+          <img :src="img_url + user.profile" alt="image" width="35%" max-height="150px" />
+        </div>
+        <div>
           <input
             type="file"
             @change="preview_image"
             style="display: none"
             ref="fileInput"
           />
-          <v-btn @click="$refs.fileInput.click()" color="indigo">Profile</v-btn>
+          <v-btn @click="$refs.fileInput.click()" color="indigo">New Profile</v-btn>
         </div>
-        <div>
-          <img :src="profile" alt="image" width="35%" max-height="150px" />
+        <div class="mt-5 mb-5">
+          <img :src="new_profile" alt="image" width="35%" max-height="150px" />
         </div>
       </v-card-text>
       <v-card-actions>
         <div>
           <v-spacer></v-spacer>
-          <v-btn large color="primary" v-on:click="createUser">Register</v-btn>
+          <v-btn type="submit" large color="primary">Edit</v-btn>
           <v-btn type="reset" class="ml-2" large color="secondary">Clear</v-btn>
+          <router-link
+            class="pl-5"
+            :to="{ name: 'change-password', params: { user: user.id } }"
+            >Change Password</router-link
+          >
         </div>
       </v-card-actions>
     </v-form>
   </v-card>
 </template>
 
-<script src="../../services/pages/user/create-user.js"></script>
+<script src="../../services/pages/user/edit-profile.js"></script>

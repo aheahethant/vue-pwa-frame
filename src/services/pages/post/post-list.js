@@ -1,7 +1,7 @@
 import { mapGetters } from "vuex";
 export default {
     data() {
-        return {
+        return { 
             selectedDialogNote: false,
             item: {},
             headerList: [
@@ -39,7 +39,7 @@ export default {
         ...mapGetters(["isLoggedIn"]),
         headers() {
             if (!this.isLoggedIn) {
-                return this.headerList.slice(0, this.headerList.length);
+                return this.headerList.slice(0, this.headerList.length - 1);
             } else {
                 return this.headerList;
             }
@@ -68,6 +68,18 @@ export default {
         },
         editPost(item) {
             this.$router.push({ name: 'edit-post', params: { item: item} });
+        },
+        deletePost(item) {
+            this.$axios
+                .delete(`/delete/post/${item.id}`)
+                .then(function (response) {
+                    console.log(response);
+                    alert("deleting......");
+                    window.location.href = 'http://localhost:8080/post/list';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
         /**
          * This is to filter posts of datatable.

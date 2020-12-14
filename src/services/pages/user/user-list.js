@@ -2,6 +2,7 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
+            img_url: process.env.VUE_APP_IMG,
             selectedDialogNote: false,
             item: {},
             date: new Date().toISOString().substr(0, 10),
@@ -77,14 +78,29 @@ export default {
             });
     },
     methods: {
+        editUser(item) {
+            this.$router.push({ name: 'update-user', params: { item: item } });
+        },
         showDetail(item) {
             this.selectedDialogNote = true;
             this.item = item;
         },
-        hideDetail: function (event){
+        hideDetail: function (event) {
             if (event) {
                 this.selectedDialogNote = false;
-              }
+            }
         },
+        destroy(item) {
+            this.$axios
+                .delete(`/delete/user/${item.id}`)
+                .then(function (response) {
+                    console.log(response);
+                    alert("deleting......");
+                    window.location.href = 'http://localhost:8080/user/list';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     },
 };
