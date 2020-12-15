@@ -2,12 +2,14 @@ export default {
     data() {
         return {
             valid: true,
-            password: "",
             current_password: "",
             new_password: "",
             confirm_new_password: "",
+            confirm_password_error: "",
+            current_password_error: "",
+            new_password_error: "",
             error: "",
-            
+
             //validation rules
             current_passwordRules: [value => !!value || "Current Password is required"],
             new_passwordRules: [value => !!value || "New password is required"],
@@ -33,7 +35,10 @@ export default {
                     window.location.href = 'http://localhost:8080/profile';
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    this.confirm_password_error = error.response.data.errors.confirm_new_password;
+                    this.current_password_error = error.response.data.errors.current_password;
+                    this.new_password_error = error.response.data.errors.new_password;
+                    console.log(error.response.data.errors)
                 });
         },
     },

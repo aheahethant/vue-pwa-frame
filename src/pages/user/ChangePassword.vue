@@ -3,13 +3,37 @@
     <v-card-title>
       <span class="title font-weight-light">Change Password</span>
     </v-card-title>
+
     <v-form ref="form" v-model="valid" @submit.prevent="changePassword">
       <v-card-text>
-        <div>{{ error }}</div>
+        <v-alert
+          border="bottom"
+          color="red"
+          dismissible
+          type="info"
+          v-if="this.current_password_error"
+          >{{ current_password_error }}</v-alert
+        >
+        <v-alert
+          border="bottom"
+          color="red"
+          dismissible
+          type="info"
+          v-if="this.new_password_error"
+          >{{ new_password_error }}</v-alert
+        >
+        <v-alert
+          border="bottom"
+          color="red"
+          dismissible
+          type="info"
+          v-if="this.confirm_password_error"
+          >{{ confirm_password_error }}</v-alert
+        >
         <div>
           <v-text-field
-            v-model="password"
-            type="current_password"
+            v-model="current_password"
+            type="password"
             label="Current Password"
             :rules="current_passwordRules"
             hide-details="auto"
