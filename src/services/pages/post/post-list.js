@@ -1,11 +1,9 @@
 import { mapGetters } from "vuex";
 export default {
     data() {
-        return {
-            postInfo: null,
-            dialogTitle: "",
-            dialog: false,
-            isDeleteDialog: false,
+        return { 
+            selectedDialogNote: false,
+            item: {},
             headerList: [
                 {
                     text: "ID",
@@ -22,7 +20,11 @@ export default {
                 },
                 {
                     text: "Posted User",
-                    value: "created_user",
+                    value: "user.name",
+                },
+                {
+                    text: "Posted Date",
+                    value: "created_at",
                 },
                 {
                     text: "Operation",
@@ -55,6 +57,30 @@ export default {
             });
     },
     methods: {
+        showDetail(item) {
+            this.selectedDialogNote = true;
+            this.item = item;
+        },
+        hideDetail: function (event) {
+            if (event) {
+                this.selectedDialogNote = false;
+            }
+        },
+        editPost(item) {
+            this.$router.push({ name: 'edit-post', params: { item: item} });
+        },
+        deletePost(item) {
+            this.$axios
+                .delete(`/delete/post/${item.id}`)
+                .then(function (response) {
+                    console.log(response);
+                    alert("deleting......");
+                    window.location.href = 'http://localhost:8080/post/list';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         /**
          * This is to filter posts of datatable.
          * @returns void

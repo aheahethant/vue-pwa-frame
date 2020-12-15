@@ -11,6 +11,9 @@ Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.prototype.$store = store;
 Vue.prototype.moment = moment;
+
+Vue.prototype.$http = axios;
+
 new Vue({
     router,
     store,
@@ -23,10 +26,9 @@ new Vue({
     created() {
         axios.interceptors.request.use(
             function (config) {
-                if (store.state.user) {
-                    const tokenType = store.state.user.data.token_type;
-                    const token = store.state.user.data.access_token;
-                    if (token) config.headers.Authorization = `${tokenType} ${token}`;
+                const token = localStorage.getItem('token')
+                if (token) {
+                    Vue.prototype.$http.defaults.headers.common['Authorization'] = token
                 }
                 return config;
             },

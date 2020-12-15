@@ -2,11 +2,11 @@
     padding: 0px 10px;
 }
 
-.post-list-btn {
+.user-list-btn {
     margin: auto;
 }
 
-.post-list-btn:hover {
+.user-list-btn:hover {
   text-decoration: none;
 }
 
@@ -19,9 +19,9 @@
 }
 
 .row{
-  display: flex;
-  flex-wrap: nowrap;
-  flex: 1 1 auto;
-  margin-right: -12px;
-  margin-left: -12px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 1 1 auto;
+    margin-right: -12px;
+    margin-left: -12px;
 }
