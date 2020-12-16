@@ -42,7 +42,7 @@
             </div>
             <div class="row">
               <div class="col-sm-5 float-left">Created User</div>
-              <div class="col-sm-7 red--text float-right">{{ userCreateUser }}</div>
+              <div class="col-sm-7 red--text float-right">{{ userName }}</div>
             </div>
             <div class="row">
               <div class="col-sm-5 float-left">Updated Date</div>
@@ -50,7 +50,7 @@
             </div>
             <div class="row">
               <div class="col-sm-5 float-left">Updated User</div>
-              <div class="col-sm-7 red--text float-right">{{ userUpdatedUser }}</div>
+              <div class="col-sm-7 red--text float-right">{{ userName }}</div>
             </div>
           </div>
         </v-row>
