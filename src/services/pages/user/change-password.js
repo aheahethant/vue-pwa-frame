@@ -2,21 +2,23 @@ export default {
     data() {
         return {
             valid: true,
+            confirm_error: "",
+            current_error: "",
+            new_error: "",
             current_password: "",
             new_password: "",
             confirm_new_password: "",
-            confirm_password_error: "",
-            current_password_error: "",
-            new_password_error: "",
             error: "",
-
             //validation rules
             current_passwordRules: [value => !!value || "Current Password is required"],
             new_passwordRules: [value => !!value || "New password is required"],
-            new_confirm_passwordRules: [value => !!value || "New Password and New Confirm password must match"]
+            new_confirm_passwordRules: [value => !!value || "New Password and New Confirm password must match"],
         }
     },
     methods: {
+        /**
+         * user's password change by user's id
+         */
         changePassword() {
             this.$refs.form.validate();
             const formData = new FormData();
@@ -29,16 +31,15 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     alert('complete successfully changed password.....');
-                    window.location.href = 'http://localhost:8080/profile';
+                    this.$router.push({ name: 'profile' });
                 })
-                .catch(function (error) {
-                    this.confirm_password_error = error.response.data.errors.confirm_new_password;
-                    this.current_password_error = error.response.data.errors.current_password;
-                    this.new_password_error = error.response.data.errors.new_password;
-                    console.log(error.response.data.errors)
+                .catch((error) => {
+                    this.current_error = error.response.data.errors.current_password[0];
+                    this.new_error = error.response.data.errors.new_password[0];
+                    this.confirm_error = error.response.data.errors.confirm_new_password[0];
                 });
         },
     },

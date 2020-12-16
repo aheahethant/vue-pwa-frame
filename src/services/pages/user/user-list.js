@@ -78,27 +78,47 @@ export default {
             });
     },
     methods: {
+        /**
+         * change update-user route with parameters
+         * @param {*} item 
+         */
         editUser(item) {
             this.$router.push({ name: 'update-user', params: { item: item } });
         },
+
+        /**
+         * show user detail by id
+         * @param {*} item 
+         */
         showDetail(item) {
-            this.selectedDialogNote = true;
-            this.item = item;
+            this.$axios.get(`/user/detail/${item.id}`)
+                .then((response) => {
+                    console.log(response);
+                    this.$router.push({ name: 'detail-user', params: { item: item } });
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         },
-        hideDetail: function (event) {
-            if (event) {
-                this.selectedDialogNote = false;
-            }
-        },
+
+        /**
+         * delete user by user's id
+         * @param {*} item 
+         */
         destroy(item) {
             this.$axios
                 .delete(`/delete/user/${item.id}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     alert("deleting......");
-                    window.location.href = 'http://localhost:8080/user/list';
+                    this.$axios
+                        .get("/user/list")
+                        .then((response) => {
+                            this.userList = response.data;
+                            this.showList = this.userList;
+                        })
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
                 });
         }

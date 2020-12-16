@@ -1,10 +1,14 @@
 export default {
+    /**
+     * declare data variables
+     */
     data: () => {
         return {
             profile: null,
             file: "",
             menu: false,
             valid: true,
+            type: "",
             user: {
                 date: new Date().toISOString().substr(0, 10),
                 name: "",
@@ -26,36 +30,45 @@ export default {
         }
     },
     methods: {
+        /**
+         * save user
+         */
         confirmUser() {
             this.$refs.form.validate();
+            if(this.user.type == "Admin"){
+                this.type = '0';
+            }else {
+                this.type = '1';
+            }
             const formData = new FormData();
             formData.append('profile', this.file);
             formData.append('name', this.user.name);
             formData.append('email', this.user.email);
             formData.append('password', this.user.confirmPassword);
-            formData.append('type', 1);
+            formData.append('type', this.type);
             formData.append('phone', this.user.phone);
             formData.append('dob', this.user.date);
             formData.append('address', this.user.address);
-            formData.append('create_user_id', 1);
-            formData.append('updated_user_id', 2)
             this.$axios.post('/create/user', formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     alert('saving.....');
-                    window.location.href = 'http://localhost:8080/user/list';
+                    this.$router.push({ name: 'user-list' });
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
                 });
         }
     },
     created() {
+        /**
+         * set the data in form input
+         */
         this.user = this.$route.params.user
         this.profile = this.$route.params.profile
         this.file = this.$route.params.file

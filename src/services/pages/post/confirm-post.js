@@ -12,6 +12,9 @@ export default {
     descriptionRules: [value => !!value || "The description field is required."]
   }),
   methods: {
+    /**
+     * save post to DB
+     */
     confirmPost() {
       this.$refs.form.validate()
       this.$axios.post('/create/post', {
@@ -20,16 +23,20 @@ export default {
         create_user_id: 1,
         updated_user_id: 1,
       })
-        .then(function (response) {
+        .then((response) => {
           console.log(response);
           alert('saving.....');
-          window.location.href = 'http://localhost:8080/post/list';
+          this.$router.push({ name: 'post-list'});
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
         });
     }
   },
+  
+  /**
+   * set data in form input
+   */
   created() {
     this.post = this.$route.params.post
   },

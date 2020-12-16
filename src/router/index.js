@@ -15,7 +15,11 @@ import UpdateUser from "../pages/user/UpdateUser";
 import Profile from "../pages/user/Profile";
 import EditProfile from "../pages/user/EditProfile";
 import ChangePassword from "../pages/user/ChangePassword";
+import UploadPost from "../pages/post/UploadPost";
+import DetailPost from "../pages/post/DetailPost";
+import DetailUser from "../pages/user/DetailUser";
 
+import store from "../store/index.js";
 Vue.use(VueRouter);
 
 const routes = [
@@ -25,34 +29,81 @@ const routes = [
         component: Login,
     },
     {
+        path: "/user/detail",
+        name: "detail-user",
+        component: DetailUser,
+        meta: {
+            authorize: [0
+            ]
+        }
+    },
+    {
+        path: "/post/detail",
+        name: "detail-post",
+        component: DetailPost,
+    },
+    {
+        path: "/upload/post",
+        name: "upload-post",
+        component: UploadPost,
+        meta: {
+            authorize: [0,1
+            ]
+        }
+    },
+    {
         path: "/change/password",
         name: "change-password",
         component: ChangePassword,
+        meta: {
+            authorize: [0,1
+            ]
+        }
     },
     {
         path: "/edit/profile",
         name: "edit-profile",
         component: EditProfile,
+        meta: {
+            authorize: [0,1
+            ]
+        }
     },
     {
         path: "/profile",
         name: "profile",
         component: Profile,
+        meta: {
+            authorize: [0,1
+            ]
+        }
     },
     {
         path: "/update/user",
         name: "update-user",
         component: UpdateUser,
+        meta: {
+            authorize: [0
+            ]
+        }
     },
     {
         path: "/create/user",
         name: "create-user",
         component: CreateUser,
+        meta: {
+            authorize: [0
+            ]
+        }
     },
     {
         path: "/confirm/user",
         name: "confirm-user",
         component: ConfirmUser,
+        meta: {
+            authorize: [0
+            ]
+        }
     },
     {
         path: "/test",
@@ -62,16 +113,28 @@ const routes = [
         path: "/user/list",
         name: "user-list",
         component: UserList,
+        meta: {
+            authorize: [0
+            ]
+        }
     },
     {
         path: "/confirm/post",
         name: "confirm-post",
         component: ConfirmPost,
+        meta: {
+            authorize: [0,1
+            ]
+        }
     },
     {
         path: "/create/post",
         name: "create-post",
         component: CreatePost,
+        meta: {
+            authorize: [0,1
+            ]
+        }
     },
     {
         path: "/post/list",
@@ -82,6 +145,10 @@ const routes = [
         path: "/edit/post",
         name: "edit-post",
         component: UpdatePost,
+        meta: {
+            authorize: [0,1
+            ]
+        }
     },
     {
         path: "/*",
@@ -98,12 +165,19 @@ const router = new VueRouter({
 /**
  * This is to handle and check authentication for routing.
  */
-// router.beforeEach((to, from, next) => {
-//     const loggedIn = store.getters.isLoggedIn;
-//     if (!loggedIn && to.name != "login") {
-//         return next("/login");
-//     }
-//     next();
-// });
+router.beforeEach((to, from, next) => {
+    const { authorize } = to.meta;
+    const loggedIn = store.getters.isLoggedIn;
+    const userType = store.getters.userType;
+    if (authorize && authorize.length) {
+        if (!authorize.includes(+userType)) {
+            return next("/post/list");
+        }
+    } else if (loggedIn && to.name == "login") {
+        return next("/post/list");
+    }
+
+    next();
+});
 
 export default router;

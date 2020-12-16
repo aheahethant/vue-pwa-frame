@@ -4,6 +4,7 @@ export default {
             img_url: process.env.VUE_APP_IMG,
             new_profile: null,
             file: "",
+            type: "",
             menu: false,
             valid: true,
             user: {
@@ -25,6 +26,10 @@ export default {
         }
     },
     methods: {
+        /**
+         * preview image in form
+         * @param {*} e 
+         */
         preview_image(e) {
             this.file = e.target.files[0]
             let reader = new FileReader();
@@ -33,39 +38,54 @@ export default {
                 this.new_profile = e.target.result
             }
         },
+
+        /**
+         * update User
+         */
         updateUser() {
             this.$refs.form.validate();
+            if(this.user.type == "Admin"){
+                this.type = '0';
+            }else {
+                this.type = '1';
+            }
             const formData = new FormData();
             formData.append('profile', this.file);
             formData.append('old_profile', this.user.profile);
             formData.append('name', this.user.name);
             formData.append('email', this.user.email);
-            formData.append('type', 1);
+            formData.append('type', this.type);
             formData.append('phone', this.user.phone);
             formData.append('dob', this.user.dob);
             formData.append('address', this.user.address);
-            formData.append('create_user_id', 1);
-            formData.append('updated_user_id', 2)
             this.$axios.post(`/update/user/${this.$route.params.item.id}`, formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 })
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     alert('updating.....');
-                    window.location.href = 'http://localhost:8080/user/list';
+                    this.$router.push({ name: 'user-list' });
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
                 });
         }
     },
+
+    /**
+     * add the data in form input
+     */
     created() {
         this.user.name = this.$route.params.item.name
         this.user.email = this.$route.params.item.email
-        this.user.type = this.$route.params.item.type
+        if(this.$route.params.item.type === 0){
+            this.user.type = "Admin";
+        }else {
+            this.user.type = "User";
+        }
         this.user.phone = this.$route.params.item.phone
         this.user.dob = this.$route.params.item.dob
         this.user.address = this.$route.params.item.address

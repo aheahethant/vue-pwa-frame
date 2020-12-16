@@ -40,8 +40,7 @@
             type="password"
             label="confirmPassword"
             hide-details="auto"
-            >}</v-text-field
-          >
+          ></v-text-field>
         </div>
         <div>
           <v-select
@@ -77,10 +76,7 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker
-              v-model="user.date"
-              @input="menu = false"
-            ></v-date-picker>
+            <v-date-picker v-model="user.date" @input="menu = false"></v-date-picker>
           </v-menu>
         </div>
         <div>

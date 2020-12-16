@@ -14,6 +14,10 @@ export default {
         }
     },
     methods: {
+        /**
+         * change the route link
+         * create post to confirm post by parameters
+         */
         createPost() {
             this.$refs.form.validate()
             this.$router.push({name:'confirm-post', params: { post: this.post }});
