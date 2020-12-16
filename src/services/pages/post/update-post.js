@@ -23,8 +23,6 @@ export default {
                 title: this.post.title,
                 description: this.post.description,
                 status: this.post.status,
-                create_user_id: 1,
-                updated_user_id: 1,
             })
             .then((response) => {
                 console.log(response);

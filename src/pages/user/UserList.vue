@@ -3,13 +3,12 @@
     <v-card-title>
       User list
       <v-spacer></v-spacer>
-      <v-form ref="form">
         <v-row class="filter-bar">
           <v-col md="2.5">
-            <v-text-field label="Name" hide-details="auto"></v-text-field>
+            <v-text-field label="Name" v-model="userName" hide-details="auto"></v-text-field>
           </v-col>
           <v-col md="2.5">
-            <v-text-field label="Email" hide-details="auto"></v-text-field>
+            <v-text-field label="Email" v-model="email" hide-details="auto"></v-text-field>
           </v-col>
           <v-col md="2.5">
             <v-menu
@@ -50,17 +49,22 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date" @input="menu1 = false"></v-date-picker>
+              <v-date-picker v-model="date1" @input="menu1 = false"></v-date-picker>
             </v-menu>
           </v-col>
-          <v-btn class="user-list-btn mr-4" color="primary">Search</v-btn>
+          <v-btn class="user-list-btn mr-4" color="primary" @click="filterUsers">Search</v-btn>
         </v-row>
-      </v-form>
     </v-card-title>
     <v-container>
       <v-data-table :headers="headers" :items="showList">
         <template v-slot:[`item.profile`]="{ item }">
           {{ item.profile }}
+        </template>
+        <template v-slot:[`item.created_at`]="{ item }">
+          <p>{{ item.created_at | moment }}</p>
+        </template>
+        <template v-slot:[`item.updated_at`]="{ item }">
+          <p>{{ item.updated_at | moment }}</p>
         </template>
         <template v-slot:[`item.name`]="{ item }">
           <v-btn class="red--text" text @click="showDetail(item)">

@@ -20,8 +20,6 @@ export default {
       this.$axios.post('/create/post', {
         title: this.post.title,
         description: this.post.description,
-        create_user_id: 1,
-        updated_user_id: 1,
       })
         .then((response) => {
           console.log(response);
@@ -31,6 +29,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    backToCreate(){
+      this.$router.push({ name: 'create-post', params: { post: this.$route.params.post }});
     }
   },
   
