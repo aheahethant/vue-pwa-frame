@@ -25,7 +25,12 @@
           ></v-text-field>
         </div>
         <div>
-          <v-select :items="['Admin', 'User']" label="Type" :rules="typeRules"></v-select>
+          <v-select
+            :items="['Admin', 'User']"
+            v-model="user.type"
+            label="Type"
+            :rules="typeRules"
+          ></v-select>
         </div>
         <div>
           <v-text-field

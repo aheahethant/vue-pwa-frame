@@ -27,6 +27,10 @@ export default {
         }
     },
     methods: {
+        /**
+         * change the file to image
+         * @param {*} e 
+         */
         preview_image(e) {
             this.file = e.target.files[0]
             let reader = new FileReader();
@@ -35,6 +39,11 @@ export default {
                 this.profile = e.target.result
             }
         },
+
+        /**
+         * change the route link 
+         * go to confirm user by parameters
+         */
         createUser() {
             this.$refs.form.validate();
             this.$router.push({ name: 'confirm-user', params: { user: this.user, profile: this.profile, file: this.file } });

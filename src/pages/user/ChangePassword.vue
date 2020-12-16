@@ -9,27 +9,29 @@
         <v-alert
           border="bottom"
           color="red"
+          v-model="current_error"
           dismissible
           type="info"
-          v-if="this.current_password_error"
-          >{{ current_password_error }}</v-alert
-        >
-        <v-alert
+          v-if="this.current_error"
+          >{{ current_error }}</v-alert
+        ><v-alert
           border="bottom"
           color="red"
+          v-model="new_error"
           dismissible
           type="info"
-          v-if="this.new_password_error"
-          >{{ new_password_error }}</v-alert
-        >
-        <v-alert
+          v-if="this.new_error"
+          >{{ new_error }}</v-alert
+        ><v-alert
           border="bottom"
           color="red"
+          v-model="confirm_error"
           dismissible
           type="info"
-          v-if="this.confirm_password_error"
-          >{{ confirm_password_error }}</v-alert
+          v-if="this.confirm_error"
+          >{{ confirm_error }}</v-alert
         >
+        <div>{{ error }}</div>
         <div>
           <v-text-field
             v-model="current_password"

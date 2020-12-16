@@ -25,12 +25,7 @@
           ></v-text-field>
         </div>
         <div>
-          <v-checkbox
-            color="indigo"
-            label="Status"
-            v-model="post.status"
-            @change="check"
-          ></v-checkbox>
+          <v-switch v-model="status" @change="check"></v-switch>
         </div>
       </v-card-text>
       <v-card-actions>

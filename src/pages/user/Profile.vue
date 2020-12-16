@@ -18,7 +18,7 @@
             </div>
             <div class="row">
               <div class="col-sm-5 float-left">Type</div>
-              <div class="col-sm-7 red--text float-right">{{ userType }}</div>
+              <div class="col-sm-7 red--text float-right">{{ type }}</div>
             </div>
             <div class="row">
               <div class="col-sm-5 float-left">Email</div>

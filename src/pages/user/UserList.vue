@@ -63,101 +63,11 @@
           {{ item.profile }}
         </template>
         <template v-slot:[`item.name`]="{ item }">
-          <v-dialog v-model="selectedDialogNote[item.id]" :key="item.id" width="500">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn class="red--text" text v-bind="attrs" v-on="on">
-                {{ item.name }}
-              </v-btn>
-            </template>
-
-            <v-card>
-              <v-card-title class="headline grey lighten-2"> User Detail </v-card-title>
-
-              <v-card-text>
-                <v-container class="grey lighten-5">
-                  <v-row no-gutters>
-                    <div class="float-left col-sm-4">
-                      <v-col cols="12">
-                        <v-card class="pa-1">
-                          <img :src="img_url + item.profile" width="100%" height="50%" />
-                        </v-card>
-                      </v-col>
-                    </div>
-                    <div class="float-right col-sm-8">
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Name</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.name }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Type</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.type }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Email</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.email }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Phone</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.phone }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Date of Birth</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.dob }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Address</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.address }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Created Date</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.created_at }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Created User</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.create_user_id }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Updated Date</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.updated_at }}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-5 float-left">Updated User</div>
-                        <div class="col-sm-7 red--text float-right">
-                          {{ item.updated_user_id }}
-                        </div>
-                      </div>
-                    </div>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-divider></v-divider>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" text v-on:click="hideDetail"> Close </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <v-btn class="red--text" text @click="showDetail(item)">
+            {{ item.name }}
+          </v-btn>
         </template>
+
         <template v-slot:[`item.type`]="{ item }">
           <div v-if="item.type === '0'">Admin</div>
           <div v-else>User</div>

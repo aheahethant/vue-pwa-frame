@@ -26,6 +26,7 @@
         </div>
         <div>
           <v-select
+            v-model="user.type"
             :items="['Admin', 'User']"
             label="Type"
             :rules="typeRules"
@@ -69,7 +70,7 @@
           ></v-text-field>
         </div>
         <div class="mt-5 mb-5">
-          <img :src="img_url+user.profile" alt="image" width="35%" max-height="150px" />
+          <img :src="img_url + user.profile" alt="image" width="35%" max-height="150px" />
         </div>
         <div>
           <input

@@ -1,7 +1,7 @@
 import { mapGetters } from "vuex";
 export default {
     data() {
-        return { 
+        return {
             selectedDialogNote: false,
             item: {},
             headerList: [
@@ -57,30 +57,58 @@ export default {
             });
     },
     methods: {
+        /**
+         * detial post
+         * @param {*} item 
+         */
         showDetail(item) {
-            this.selectedDialogNote = true;
-            this.item = item;
+            this.$axios.get(`/post/detail/${item.id}`)
+                .then((response) => {
+                    console.log(response);
+                    this.$router.push({ name: 'detail-post', params: { item: item } });
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         },
-        hideDetail: function (event) {
-            if (event) {
-                this.selectedDialogNote = false;
-            }
-        },
+
+        /**
+         * edit post
+         * @param {*} item 
+         */
         editPost(item) {
-            this.$router.push({ name: 'edit-post', params: { item: item} });
+            this.$router.push({ name: 'edit-post', params: { item: item } });
         },
+
+        /**
+         * delete post by id
+         * @param {*} item 
+         */
         deletePost(item) {
             this.$axios
                 .delete(`/delete/post/${item.id}`)
-                .then(function (response) {
+                .then((response) => {
                     console.log(response);
                     alert("deleting......");
-                    window.location.href = 'http://localhost:8080/post/list';
+                    this.$axios
+                        .get("/post/list")
+                        .then((response) => {
+                            this.postList = response.data;
+                            this.showList = this.postList;
+                        })
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
                 });
         },
+
+        /**
+         * change the upload post route
+         */
+        uploadPost() {
+            this.$router.push({ name: 'upload-post' })
+        },
+
         /**
          * This is to filter posts of datatable.
          * @returns void
