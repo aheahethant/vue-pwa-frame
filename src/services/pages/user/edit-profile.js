@@ -81,7 +81,7 @@ export default {
          */
         this.user.name = this.$route.params.user.name
         this.user.email = this.$route.params.user.email
-        if(this.$route.params.user.type === 0){
+        if(this.$route.params.user.type === '0'){
             this.user.type = "Admin";
         }else {
             this.user.type = "User";
