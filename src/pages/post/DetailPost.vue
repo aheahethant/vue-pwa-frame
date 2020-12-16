@@ -19,19 +19,11 @@
         </v-row>
         <v-row>
           <v-col> Created Date </v-col>
-          <v-col class="red--text">{{ created_date }}</v-col>
-        </v-row>
-        <v-row>
-          <v-col> Created User </v-col>
-          <v-col class="red--text">{{ created_user }}</v-col>
+          <v-col class="red--text">{{ created_date | moment }}</v-col>
         </v-row>
         <v-row>
           <v-col> Updated Date </v-col>
-          <v-col class="red--text">{{ updated_date }}</v-col>
-        </v-row>
-        <v-row>
-          <v-col> Updated User </v-col>
-          <v-col class="red--text">{{ updated_user }}</v-col>
+          <v-col class="red--text">{{ updated_date | moment }}</v-col>
         </v-row>
       </v-container>
     </v-card-text>

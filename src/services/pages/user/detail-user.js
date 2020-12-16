@@ -1,3 +1,4 @@
+import moment from 'moment'
 export default {
     data() {
         return {
@@ -13,6 +14,15 @@ export default {
             created_user: "",
             updated_date: "",
             updated_user: "",
+        }
+    },
+
+    /**
+     * change format date
+     */
+    filters: {
+        moment: function (date) {
+            return moment(date).format('YYYY-MM-DD');
         }
     },
     created() {

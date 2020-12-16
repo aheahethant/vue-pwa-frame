@@ -1,7 +1,9 @@
 import { mapGetters } from "vuex";
+import moment from 'moment'
 export default {
     data() {
         return {
+            search: '',
             selectedDialogNote: false,
             item: {},
             headerList: [
@@ -56,6 +58,11 @@ export default {
                 console.log(err);
             });
     },
+    filters: {
+        moment: function (date) {
+            return moment(date).format('YYYY-MM-DD');
+        }
+    },
     methods: {
         /**
          * detial post
@@ -101,26 +108,27 @@ export default {
                     console.log(error);
                 });
         },
+        
+        /**
+         * This is to filter posts of datatable.
+         * @returns void
+         */
+        filterPosts() {
+            const keyword = this.search;
+            this.showList = this.postList.filter((post) => {
+                console.log(post)
+                return (
+                    post.title.includes(keyword) ||
+                    post.description.includes(keyword)
+                );
+            });
+        },
 
         /**
          * change the upload post route
          */
         uploadPost() {
             this.$router.push({ name: 'upload-post' })
-        },
-
-        /**
-         * This is to filter posts of datatable.
-         * @returns void
-         */
-        filterPosts() {
-            this.showList = this.postList.filter((post) => {
-                return (
-                    post.title.includes(this.keyword) ||
-                    post.description.includes(this.keyword) ||
-                    post.created_user.includes(this.keyword)
-                );
-            });
-        },
+        },        
     },
 };

@@ -1,3 +1,4 @@
+import moment from 'moment'
 export default {
     data() {
         return {
@@ -5,12 +6,18 @@ export default {
             description: "",
             status: "",
             created_date: "",
-            created_user: "",
             updated_date: "",
-            updated_user: "",
         }
     },
-
+    
+    /**
+     * change format date
+     */
+    filters: {
+        moment: function (date) {
+            return moment(date).format('YYYY-MM-DD');
+        }
+    },
     /**
      * post detail by parameters
      */
@@ -23,9 +30,7 @@ export default {
             this.status = "Not Active";
         }
         this.created_date = this.$route.params.item.created_at;
-        this.created_user = this.$route.params.item.create_user_id;
         this.updated_date = this.$route.params.item.updated_at;
-        this.updated_user = this.$route.params.item.updated_user_id;
     },
     methods: { 
         /**
